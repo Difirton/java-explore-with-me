@@ -8,7 +8,7 @@ services:
       - "9090:9090"
     depends_on:
       - stats-db
-      - ewm-service
+      - main-service
     environment:
       - explore-with-me-stats.url=http://ewm-service:8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats
@@ -28,23 +28,23 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=stats
 
-  ewm-service:
-    build: explore-with-me-ewm
+  main-service:
+    build: explore-with-me-main
     restart: always
-    container_name: explore-with-me-ewm
+    container_name: explore-with-me-main
     ports:
       - "8080:8080"
     depends_on:
-      - ewm-db
+      - main-db
     environment:
       - explore-with-me-stats.url=http://stats-server:8080
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5432/main
       - SPRING_DATASOURCE_USERNAME=adm
       - SPRING_DATASOURCE_PASSWORD=password
 
-  ewm-db:
+  main-db:
     image: postgres:14-alpine
-    container_name: ewm-db
+    container_name: main-db
     restart: always
     volumes:
       - /var/lib/postgresql/data
@@ -53,4 +53,4 @@ services:
     environment:
       - POSTGRES_USER=adm
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=ewm
+      - POSTGRES_DB=main

@@ -1,14 +1,13 @@
 package ru.practicum.service;
 
-import ru.practicum.repository.entity.Hit;
+import ru.practicum.repository.entity.EndpointHit;
+import ru.practicum.web.dto.StatDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 public interface StatService {
-    Hit save(Hit hit);
+    void save(EndpointHit endpointHit);
 
-    Map<String, Map<String, Long>> getStats(LocalDateTime start, LocalDateTime end, List<String> uris,
-                                            Boolean isUnique);
+    List<StatDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean isUnique);
 }

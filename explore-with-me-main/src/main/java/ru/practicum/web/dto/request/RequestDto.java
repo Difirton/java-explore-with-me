@@ -1,10 +1,10 @@
-package ru.practicum.web.dto;
+package ru.practicum.web.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.*;
-import ru.practicum.common.validator.IpAddress;
+import ru.practicum.event.repository.constant.State;
 
 import java.time.LocalDateTime;
 
@@ -13,15 +13,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HitDto {
+public class RequestDto {
     private Long id;
-    private String app;
-    private String uri;
-
-    @IpAddress
-    private String ip;
+    private Long event;
+    private Long requester;
+    private State state;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime timestamp;
+    private LocalDateTime created;
 }
