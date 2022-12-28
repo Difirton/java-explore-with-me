@@ -2,12 +2,14 @@ package ru.practicum.event.repository.entity;
 
 import lombok.*;
 import ru.practicum.category.repository.entity.Category;
+import ru.practicum.compilation.repository.Compilation;
 import ru.practicum.event.repository.constant.State;
 import ru.practicum.user.repository.entity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -44,12 +46,18 @@ public class Event {
     @Column(name = "published_on")
     private LocalDateTime publishedOn;
 
-    @OneToOne
+    @Column(name = "created_on")
+    private LocalDateTime createdOn;
+
+    @ManyToOne
     @Column(name = "initiator")
     private User initiator;
 
     @Column(name = "paid")
     private Boolean isPaid;
+
+    @Column(name = "request_moderation")
+    private Boolean requestModeration;
 
     @ManyToOne
     private Location location;
@@ -57,7 +65,14 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private State state;
 
+    @Column(name = "participant_limit")
+    private Integer participantLimit;
+
     @Column(name = "views")
     private Integer views;
+
+    @ManyToMany
+    @JoinTable(name = "compilations_events")
+    private List<Compilation> compilations;
 }
 

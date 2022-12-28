@@ -5,7 +5,7 @@ import ru.practicum.request.repository.Request;
 import java.util.List;
 
 public interface RequestService {
-    Request addRequest(Long userId, Long eventId);
+    Request createRequest(Long userId, Long eventId);
 
     List<Request> findAllRequests(Long userId);
 

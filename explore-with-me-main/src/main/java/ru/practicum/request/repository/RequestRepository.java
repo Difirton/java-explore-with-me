@@ -2,8 +2,8 @@ package ru.practicum.request.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.practicum.event.repository.constant.State;
 import ru.practicum.event.repository.entity.Event;
+import ru.practicum.request.constant.Status;
 import ru.practicum.user.repository.entity.User;
 
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.Optional;
 public interface RequestRepository extends JpaRepository<Request, Long> {
     Optional<Request> findRequestByRequesterAndEvent(User user, Event event);
 
-    Optional<Request> findRequestByIdAndRequesterId(long requestId, long userId);
+    Optional<Request> findByIdAndRequesterId(Long requestId, Long userId);
 
     List<Request> findRequestsByEvent(Event event);
 
-    List<Request> findRequestsByEventAndState(Event event, State state);
+    List<Request> findRequestsByEventAndStatus(Event event, Status status);
 
-    List<Request> findRequestsByRequesterId(long userId);
+    List<Request> findRequestsByRequesterId(Long userId);
 }

@@ -9,4 +9,9 @@ public class EventNotFoundException extends RuntimeException {
         super(String.format("Event with id = %s, not found", id));
         log.error("Event with id = {}, not found", id);
     }
+
+    public EventNotFoundException(Long id, Long userId) {
+        super(String.format("Event with id = %s, not found for user with id = %s", id, userId));
+        log.error("Event with id = {}, not found for user with id = {}", id, userId);
+    }
 }

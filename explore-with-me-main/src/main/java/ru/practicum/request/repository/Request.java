@@ -1,19 +1,19 @@
 package ru.practicum.request.repository;
 
 import lombok.*;
-import ru.practicum.event.repository.constant.State;
 import ru.practicum.event.repository.entity.Event;
+import ru.practicum.request.constant.Status;
 import ru.practicum.user.repository.entity.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "requests")
 public class Request {
     @Id
@@ -29,7 +29,7 @@ public class Request {
     private User requester;
 
     @Enumerated(EnumType.STRING)
-    private State state;
+    private Status status;
 
     @Builder.Default
     private LocalDateTime created = LocalDateTime.now();

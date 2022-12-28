@@ -24,11 +24,11 @@ public class EventDto {
     private Category category;
     private Integer confirmedRequests;
     private User initiator;
-    private LocationDto location;
     private Boolean isPaid;
-    private Integer participantLimit;
     private Boolean requestModeration;
+    private LocationDto location;
     private State state;
+    private Integer participantLimit;
     private Integer views;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

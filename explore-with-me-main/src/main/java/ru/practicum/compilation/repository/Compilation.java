@@ -22,6 +22,7 @@ public class Compilation {
 
     private Boolean pinned;
 
-    @ManyToMany(mappedBy = "compilations")
+    @ManyToMany
+    @JoinTable(name = "compilations_events")
     private List<Event> events;
 }

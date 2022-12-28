@@ -23,7 +23,7 @@ public class UserRequestController {
     @PostMapping
     public RequestDto createRequest(@Positive @PathVariable Long userId,
                                     @Positive @RequestParam(name = "eventId") Long eventId) {
-        return requestToRequestDtoConvertor.convert(requestService.addRequest(userId, eventId));
+        return requestToRequestDtoConvertor.convert(requestService.createRequest(userId, eventId));
     }
 
     @GetMapping
