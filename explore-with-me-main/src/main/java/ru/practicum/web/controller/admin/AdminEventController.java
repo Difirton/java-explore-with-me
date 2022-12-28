@@ -1,4 +1,4 @@
-package ru.practicum.web.admin;
+package ru.practicum.web.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,18 +29,19 @@ public class AdminEventController {
     private final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @GetMapping
-    public List<EventDtoInCollection> getEvents(@RequestParam List<Long> users,
-                                                @RequestParam List<State> states,
-                                                @RequestParam List<Long> categories,
-                                                @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-                                                    @RequestParam Optional<LocalDateTime> start,
-                                                @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-                                                    @RequestParam Optional<LocalDateTime> finish,
-                                                @RequestParam Optional<Integer> from,
-                                                @RequestParam Optional<Integer> size) {
-        return eventService.findAllByParams(users, states, categories, start.orElse(LocalDateTime.now()),
-                        finish.orElse(LocalDateTime.MAX), from.orElse(DEFAULT_FROM), size.orElse(DEFAULT_SIZE)).stream()
-                .map(eventToEventDtoInCollectionConvertor::convert)
+    public List<EventDto> getEvents(@RequestParam(required = false) List<Long> users,
+                                    @RequestParam(required = false) List<State> states,
+                                    @RequestParam(required = false) List<Long> categories,
+                                    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+                                        @RequestParam Optional<LocalDateTime> rangeStart,
+                                    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+                                        @RequestParam Optional<LocalDateTime> rangeEnd,
+                                    @RequestParam Optional<Integer> from,
+                                    @RequestParam Optional<Integer> size) {
+        return eventService.findAllByParams(users, states, categories,
+                        rangeStart.orElse(LocalDateTime.now()), rangeEnd.orElse(LocalDateTime.MAX),
+                        from.orElse(DEFAULT_FROM), size.orElse(DEFAULT_SIZE)).stream()
+                .map(eventDtoConvertor::convertToDto)
                 .collect(Collectors.toList());
     }
 

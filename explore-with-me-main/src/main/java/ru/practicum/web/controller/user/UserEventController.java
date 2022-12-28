@@ -1,4 +1,4 @@
-package ru.practicum.web.user;
+package ru.practicum.web.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +61,7 @@ public class UserEventController {
 
     @GetMapping("/{eventId}/requests")
     List<RequestDto> getEventRequests(@Positive @PathVariable Long userId, @Positive @PathVariable Long eventId) {
-        return requestService.getRequests(userId, eventId).stream()
+        return requestService.findRequestsByUserIdAndEventId(userId, eventId).stream()
                 .map(requestToRequestDtoConvertor::convert)
                 .collect(toList());
     }

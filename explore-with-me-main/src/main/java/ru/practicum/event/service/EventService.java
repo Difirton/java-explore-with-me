@@ -2,7 +2,6 @@ package ru.practicum.event.service;
 
 import ru.practicum.event.repository.constant.State;
 import ru.practicum.event.repository.entity.Event;
-import ru.practicum.web.dto.event.EventDto;
 
 import java.time.LocalDateTime;
 import java.util.List;

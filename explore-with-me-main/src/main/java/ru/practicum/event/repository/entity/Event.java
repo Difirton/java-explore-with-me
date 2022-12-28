@@ -34,7 +34,6 @@ public class Event {
     private String description;
 
     @ManyToOne
-    @Column(name = "category")
     private Category category;
 
     @Column(name = "confirmed_requests")
@@ -50,7 +49,6 @@ public class Event {
     private LocalDateTime createdOn;
 
     @ManyToOne
-    @Column(name = "initiator")
     private User initiator;
 
     @Column(name = "paid")

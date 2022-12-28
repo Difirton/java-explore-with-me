@@ -1,4 +1,4 @@
-package ru.practicum.web.user;
+package ru.practicum.web.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ public class UserRequestController {
 
     @GetMapping
     public List<RequestDto> getRequests(@Positive @PathVariable Long userId) {
-        return requestService.findAllRequests(userId).stream()
+        return requestService.findAllUserRequests(userId).stream()
                 .map(requestToRequestDtoConvertor::convert)
                 .collect(toList());
     }

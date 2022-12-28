@@ -1,11 +1,12 @@
-package ru.practicum.web.admin;
+package ru.practicum.web.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilation.repository.Compilation;
 import ru.practicum.compilation.service.CompilationService;
 import ru.practicum.web.dto.compilation.CompilationDto;
-import ru.practicum.web.dto.compilation.convertor.CompilationDtoToCompilationConvertor;
+import ru.practicum.web.dto.compilation.CompilationInDto;
+import ru.practicum.web.dto.compilation.convertor.CompilationInDtoToCompilationConvertor;
 import ru.practicum.web.dto.compilation.convertor.CompilationToCompilationDtoConvertor;
 
 @RequiredArgsConstructor
@@ -13,14 +14,14 @@ import ru.practicum.web.dto.compilation.convertor.CompilationToCompilationDtoCon
 @RequestMapping("/admin/compilations")
 public class AdminCompilationController {
     private final CompilationService compilationService;
-    private final CompilationDtoToCompilationConvertor compilationDtoToCompilationConvertor;
+    private final CompilationInDtoToCompilationConvertor compilationInDtoToCompilationConvertor;
     private final CompilationToCompilationDtoConvertor compilationToCompilationDtoConvertor;
 
 
     @PostMapping
-    CompilationDto createCompilation(@RequestBody CompilationDto compilationDto) {
+    CompilationDto createCompilation(@RequestBody CompilationInDto compilationDto) {
         Compilation newCompilation = compilationService.createCompilation(
-                compilationDtoToCompilationConvertor.convert(compilationDto));
+                compilationInDtoToCompilationConvertor.convert(compilationDto));
         return compilationToCompilationDtoConvertor.convert(newCompilation);
     }
 

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 import ru.practicum.category.repository.entity.Category;
 import ru.practicum.event.repository.constant.State;
-import ru.practicum.event.repository.entity.Location;
 import ru.practicum.user.repository.entity.User;
 
 import java.time.LocalDateTime;

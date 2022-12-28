@@ -16,7 +16,6 @@ import ru.practicum.request.repository.RequestRepository;
 import ru.practicum.user.error.UserNotFoundException;
 import ru.practicum.user.repository.UserRepository;
 import ru.practicum.user.repository.entity.User;
-import ru.practicum.web.user.UserRequestController;
 
 import java.util.List;
 
@@ -62,12 +61,13 @@ public class RequestServiceImpl implements RequestService {
             throw new IllegalStateException("Event is not published");
         }
         if (event.getParticipantLimit().equals(event.getConfirmedRequests())) {
-            throw new IllegalStateException("The limit of applications has been reached, application with id has been rejected")
+            throw new IllegalStateException("The limit of applications has been reached, " +
+                    "application with id has been rejected");
         }
     }
 
     @Override
-    public List<Request> findAllRequests(Long userId) {
+    public List<Request> findAllUserRequests(Long userId) {
         return requestRepository.findRequestsByRequesterId(userId);
     }
 
@@ -76,16 +76,14 @@ public class RequestServiceImpl implements RequestService {
         Request request = requestRepository.findByIdAndRequesterId(requestId, userId)
                 .orElseThrow(() -> new RequestNotFoundException(requestId, userId));
         request.setStatus(Status.CANCELED);
-        requestRepository.save(request);
-        return request;
+        return requestRepository.save(request);
     }
 
-
-
-
     @Override
-    public Request getRequests(Long userId, Long eventId) {
-        return requestRepository.findRequestByRequesterAndEvent(userId, eventId);
+    public List<Request> findRequestsByUserIdAndEventId(Long userId, Long eventId) {
+        Event event = eventRepository.findEventByIdAndInitiatorId(eventId, userId)
+                .orElseThrow(() -> new EventNotFoundException(eventId, userId));
+        return requestRepository.findRequestsByEvent(event);
     }
 
     @Transactional
@@ -95,28 +93,31 @@ public class RequestServiceImpl implements RequestService {
                 .orElseThrow(() -> new EventNotFoundException(eventId, userId));
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new RequestNotFoundException(requestId));
-
         if (event.getParticipantLimit() == 0 || !event.getRequestModeration()) {
             return request;
         }
         if (event.getParticipantLimit().equals(event.getConfirmedRequests())) {
             throw new RequestsLimitException(requestId);
         }
-        if (event.getParticipantLimit() == (event.getConfirmedRequests() + 1)) {
+        if (event.getParticipantLimit().equals(event.getConfirmedRequests() + 1)) {
             List<Request> pendingRequests = requestRepository.findRequestsByEventAndStatus(event, Status.PENDING);
             event.setConfirmedRequests(event.getConfirmedRequests() + 1);
-            request.setStatus(Sta);
+            request.setStatus(Status.CONFIRMED);
             pendingRequests.forEach(req -> req.setStatus(Status.CANCELED));
         } else {
             event.setConfirmedRequests(event.getConfirmedRequests() + 1);
             request.setStatus(Status.CONFIRMED);
         }
-
-        return RequestMapper.toParticipationRequestDto(request);
+        return requestRepository.save(request);
     }
 
     @Override
     public Request rejectRequest(Long userId, Long eventId, Long requestId) {
-        return null;
+        eventRepository.findEventByIdAndInitiatorId(eventId, userId)
+                .orElseThrow(() -> new EventNotFoundException(eventId, userId));
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new RequestNotFoundException(requestId));
+        request.setStatus(Status.REJECTED);
+        return requestRepository.save(request);
     }
 }

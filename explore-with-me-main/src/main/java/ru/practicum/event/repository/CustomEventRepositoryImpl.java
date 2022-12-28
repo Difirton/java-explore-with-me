@@ -99,7 +99,7 @@ public class CustomEventRepositoryImpl implements CustomEventRepository {
                                              Integer size) {
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(cb.equal(event.get("state"), State.PUBLISHED));
-        predicates.add(cb.greaterThan(event.get("rangeStart"), rangeStart));
+        predicates.add(cb.greaterThan(event.get("eventDate"), rangeStart));
         predicates.add(cb.lessThan(event.get("eventDate"), rangeEnd));
         if (text != null) {
             predicates.add(cb.or(
@@ -107,7 +107,7 @@ public class CustomEventRepositoryImpl implements CustomEventRepository {
                     cb.like(cb.upper(event.get("annotation")), "%" + text.toUpperCase() + "%")));
         }
         if (categoriesIds != null && !categoriesIds.isEmpty()) {
-            predicates.add(cb.in(event.get("category").get("id")).value(categoriesIds));
+            predicates.add(cb.in(event.get("categories").get("id")).value(categoriesIds));
         }
         if (isPaid != null) {
             predicates.add(cb.equal(event.get("isPaid"), isPaid));

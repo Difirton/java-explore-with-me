@@ -1,11 +1,11 @@
-package ru.practicum.web.dto.request;
+package ru.practicum.web.dto.endpointhit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
-import ru.practicum.event.repository.constant.State;
-import ru.practicum.request.constant.Status;
 
 import java.time.LocalDateTime;
 
@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestDto {
-    private Long id;
-    private Long event;
-    private Long requester;
-    private Status status;
+public class EndpointHit {
+    private String app;
+    private String uri;
+    private String ip;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime created;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime timestamp;
 }

@@ -14,7 +14,6 @@ import ru.practicum.event.repository.entity.Location;
 import ru.practicum.user.error.UserNotFoundException;
 import ru.practicum.user.repository.UserRepository;
 import ru.practicum.user.repository.entity.User;
-import ru.practicum.web.dto.event.EventDto;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

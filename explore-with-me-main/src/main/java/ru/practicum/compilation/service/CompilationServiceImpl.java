@@ -2,6 +2,7 @@ package ru.practicum.compilation.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.compilation.error.CompilationNotFoundException;
@@ -10,6 +11,9 @@ import ru.practicum.compilation.repository.CompilationRepository;
 import ru.practicum.event.error.EventNotFoundException;
 import ru.practicum.event.repository.EventRepository;
 import ru.practicum.event.repository.entity.Event;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -67,5 +71,20 @@ public class CompilationServiceImpl implements CompilationService {
                 .orElseThrow(() -> new CompilationNotFoundException(compId));
         compilation.setPinned(true);
         compilationRepository.save(compilation);
+    }
+
+    @Override
+    public List<Compilation> findCompilations(Optional<Boolean> pinned, Integer from, Integer size) {
+        if (pinned.isPresent()) {
+            return compilationRepository.findCompilationsByPinned(pinned.get(), PageRequest.of(from, size));
+        } else {
+            return compilationRepository.findAll(PageRequest.of(from, size)).getContent();
+        }
+    }
+
+    @Override
+    public Compilation findCompilationById(Long compilationId) {
+        return compilationRepository.findById(compilationId)
+                .orElseThrow(() -> new CompilationNotFoundException(compilationId));
     }
 }

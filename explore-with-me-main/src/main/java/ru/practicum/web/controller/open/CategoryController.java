@@ -1,8 +1,7 @@
-package ru.practicum.web.open;
+package ru.practicum.web.controller.open;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.category.service.CategoryService;
 import ru.practicum.web.dto.category.convertor.CategoryToCategoryDtoConvertor;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryToCategoryDtoConvertor categoryToCategoryDtoConvertor;
@@ -30,9 +29,9 @@ public class CategoryController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping
+    @GetMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    CategoryDto getCategoryById(@RequestParam Long catId) {
-        return categoryToCategoryDtoConvertor.convert(categoryService.findById(catId));
+    CategoryDto getCategoryById(@RequestParam Long categoryId) {
+        return categoryToCategoryDtoConvertor.convert(categoryService.findById(categoryId));
     }
 }
