@@ -6,21 +6,21 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 import ru.practicum.event.repository.constant.State;
 import ru.practicum.user.repository.entity.User;
-import ru.practicum.web.dto.category.CategoryDto;
 
 import java.time.LocalDateTime;
 
+@ToString
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventDto {
+public class EventInDto {
     private Long id;
     private String title;
     private String annotation;
     private String description;
-    private CategoryDto category;
+    private Long category;
     private Integer confirmedRequests;
     private User initiator;
     private Boolean paid;

@@ -19,7 +19,6 @@ public class LocationConvertor {
 
     public Location toLocation(LocationDto source) {
         return Location.builder()
-                .id(source.getId())
                 .lat(BigDecimal.valueOf(source.getLat()))
                 .lon(BigDecimal.valueOf(source.getLon()))
                 .build();

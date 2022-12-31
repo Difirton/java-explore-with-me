@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.practicum.category.error.CategoryNotFoundException;
 import ru.practicum.compilation.error.CompilationNotFoundException;
 import ru.practicum.event.error.EventNotFoundException;
@@ -16,7 +16,6 @@ import ru.practicum.request.error.RequestNotFoundException;
 import ru.practicum.user.error.UserNotFoundException;
 import ru.practicum.web.dto.error.ErrorDto;
 
-import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +42,8 @@ public class MainGlobalExceptionHandler {
     }
 
     @ExceptionHandler({IllegalStateException.class, IllegalArgumentException.class,
-            InvalidDataAccessApiUsageException.class, ConstraintViolationException.class})
+            InvalidDataAccessApiUsageException.class, javax.validation.ConstraintViolationException.class,
+            HttpMessageNotReadableException.class})
     public ResponseEntity<ErrorDto> handleBadRequest(RuntimeException e) {
         log.info("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
         ErrorDto errorDto = ErrorDto.builder()
@@ -77,18 +77,33 @@ public class MainGlobalExceptionHandler {
         return new ResponseEntity<>(errorDtoList, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<ErrorDto> handleThrowable(Exception e) {
+    @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
+    public ResponseEntity<ErrorDto> handleConflict(RuntimeException e) {
         log.error("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
         ErrorDto errorDto = ErrorDto.builder()
                 .reason("Error occurred")
                 .message(e.getMessage())
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                .status(HttpStatus.CONFLICT.getReasonPhrase())
                 .timestamp(LocalDateTime.now())
                 .errors(Arrays.stream(e.getStackTrace())
                         .map(StackTraceElement::getClassName)
                         .collect(Collectors.toList()))
                 .build();
-        return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorDto, HttpStatus.CONFLICT);
     }
+
+//    @ExceptionHandler
+//    public ResponseEntity<ErrorDto> handleThrowable(Exception e) {
+//        log.error("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
+//        ErrorDto errorDto = ErrorDto.builder()
+//                .reason("Error occurred")
+//                .message(e.getMessage())
+//                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+//                .timestamp(LocalDateTime.now())
+//                .errors(Arrays.stream(e.getStackTrace())
+//                        .map(StackTraceElement::getClassName)
+//                        .collect(Collectors.toList()))
+//                .build();
+//        return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }

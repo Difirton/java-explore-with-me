@@ -7,7 +7,6 @@ import ru.practicum.event.repository.constant.State;
 import ru.practicum.event.repository.entity.Event;
 import ru.practicum.event.service.EventService;
 import ru.practicum.web.dto.event.EventDto;
-import ru.practicum.web.dto.event.EventDtoInCollection;
 import ru.practicum.web.dto.event.convertor.EventDtoConvertor;
 import ru.practicum.web.dto.event.convertor.EventToEventDtoInCollectionConvertor;
 

@@ -31,7 +31,7 @@ public class CategoryController {
 
     @GetMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    CategoryDto getCategoryById(@RequestParam Long categoryId) {
+    CategoryDto getCategoryById(@PathVariable Long categoryId) {
         return categoryToCategoryDtoConvertor.convert(categoryService.findById(categoryId));
     }
 }

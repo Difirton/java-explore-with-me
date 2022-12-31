@@ -107,7 +107,7 @@ public class CustomEventRepositoryImpl implements CustomEventRepository {
                     cb.like(cb.upper(event.get("annotation")), "%" + text.toUpperCase() + "%")));
         }
         if (categoriesIds != null && !categoriesIds.isEmpty()) {
-            predicates.add(cb.in(event.get("categories").get("id")).value(categoriesIds));
+            predicates.add(cb.in(event.get("category").get("id")).value(categoriesIds));
         }
         if (isPaid != null) {
             predicates.add(cb.equal(event.get("isPaid"), isPaid));

@@ -27,6 +27,7 @@ public class Event {
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
+    @NotBlank
     @Column(name = "annotation", length = 1000)
     private String annotation;
 
@@ -36,8 +37,9 @@ public class Event {
     @ManyToOne
     private Category category;
 
+    @Builder.Default
     @Column(name = "confirmed_requests")
-    private Integer confirmedRequests;
+    private Integer confirmedRequests = 0;
 
     @Column(name = "event_date")
     private LocalDateTime eventDate;
@@ -60,8 +62,9 @@ public class Event {
     @ManyToOne
     private Location location;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private State state;
+    private State state = State.PENDING;
 
     @Column(name = "participant_limit")
     private Integer participantLimit;

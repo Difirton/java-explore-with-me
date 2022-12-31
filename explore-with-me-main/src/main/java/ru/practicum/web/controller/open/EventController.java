@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.service.EventService;
+import ru.practicum.utill.DateTimeParser;
 import ru.practicum.web.client.EventStatClient;
 import ru.practicum.web.dto.endpointhit.EndpointHit;
 import ru.practicum.web.dto.event.EventDto;
@@ -38,8 +39,8 @@ public class EventController {
     @ResponseStatus(HttpStatus.OK)
     List<EventDtoInCollection> getEvents(@RequestParam Optional<String> text, @RequestParam Optional<List<Long>> categories,
                                          @RequestParam(name = "paid", required = false) Boolean isPaid,
-                                         @RequestParam Optional<LocalDateTime> rangeStart,
-                                         @RequestParam Optional<LocalDateTime> rangeEnd,
+                                         @RequestParam Optional<String> rangeStart,
+                                         @RequestParam Optional<String> rangeEnd,
                                          @RequestParam(name = "onlyAvailable") Optional<Boolean> isOnlyAvailable,
                                          @RequestParam Optional<String> sort,
                                          @RequestParam Optional<Integer> from, @RequestParam Optional<Integer> size,
@@ -48,16 +49,19 @@ public class EventController {
 //                LocalDateTime.now());
 //       // eventStatClient.sendHit(endpointHit);
         return eventService.findAllByParams(text.orElse(EMPTY_STRING), categories.orElse(List.of()), isPaid,
-                            rangeStart.orElse(LocalDateTime.now()), rangeEnd.orElse(LocalDateTime.MAX),
-                            isOnlyAvailable.orElse(DEFAULT_ONLY_AVAILABLE), sort.orElse(DEFAULT_SORT),
-                            from.orElse(DEFAULT_FROM), size.orElse(DEFAULT_SIZE)).stream()
+                        rangeStart.map(DateTimeParser::parseToLocalDateTime)
+                                .orElse(LocalDateTime.now()),
+                        rangeEnd.map(DateTimeParser::parseToLocalDateTime)
+                                .orElse(LocalDateTime.MAX),
+                        isOnlyAvailable.orElse(DEFAULT_ONLY_AVAILABLE), sort.orElse(DEFAULT_SORT),
+                        from.orElse(DEFAULT_FROM), size.orElse(DEFAULT_SIZE)).stream()
                     .map(eventToEventDtoInCollectionConvertor::convert)
                     .collect(Collectors.toList());
     }
 
     @GetMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    EventDto getEventById(@RequestParam Long eventId, HttpServletRequest request) {
+    EventDto getEventById(@PathVariable Long eventId, HttpServletRequest request) {
 //        EndpointHit endpointHit = new EndpointHit(APP_NAME, request.getRequestURI(), request.getRemoteAddr(),
 //                LocalDateTime.now());
 //        eventStatClient.sendHit(endpointHit);

@@ -90,7 +90,7 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
         event.setInitiator(user);
-        event.setState(State.WAITING);
+        event.setState(State.PENDING);
         this.saveLocation(event.getLocation()); //TODO А оно надо?
         return eventRepository.save(event);
     }
@@ -112,10 +112,10 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
     @Override
     public Event cancelEvent(Long userId, Long eventId) {
         Event event = this.findByUserIdAndId(userId, eventId);
-        if (!event.getState().equals(State.WAITING)) {
+        if (!event.getState().equals(State.PENDING)) {
             throw new IllegalArgumentException("Event pending");
         }
-        event.setState(State.REJECTED);
+        event.setState(State.CANCELED);
         return eventRepository.save(event);
     }
 
@@ -123,7 +123,7 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
     public Event publishEvent(Long eventId) {
         Event event = this.findById(eventId);
         this.checkTimeEvent(event.getEventDate(), ONE_HOUR);
-        if (event.getState() != State.WAITING) {
+        if (event.getState() != State.PENDING) {
             throw new IllegalStateException("Event state must be - waiting");
         }
         event.setState(State.PUBLISHED);
@@ -137,7 +137,7 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
         if (event.getState() == State.PUBLISHED) {
             throw new IllegalStateException("Event state is published");
         }
-        event.setState(State.REJECTED);
+        event.setState(State.CANCELED);
         return eventRepository.save(event);
     }
 

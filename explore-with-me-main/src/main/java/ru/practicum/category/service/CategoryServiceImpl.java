@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService, NotNullPropertiesCo
     public Category updateCategory(Category category) {
         Category categoryToUpdate = this.findById(category.getId());
         this.copyNotNullProperties(category, categoryToUpdate);
-        return categoryToUpdate;
+        return categoryRepository.save(categoryToUpdate);
     }
 
     @Override

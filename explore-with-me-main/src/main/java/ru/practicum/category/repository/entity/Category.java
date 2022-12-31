@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Getter
+@ToString
 @Setter
 @Builder
 @NoArgsConstructor
