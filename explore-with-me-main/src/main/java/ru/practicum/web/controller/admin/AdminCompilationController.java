@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilation.repository.Compilation;
 import ru.practicum.compilation.service.CompilationService;
 import ru.practicum.web.dto.compilation.CompilationDto;
+import ru.practicum.web.dto.compilation.CompilationInDto;
 import ru.practicum.web.dto.compilation.convertor.CompilationInDtoToCompilationConvertor;
 import ru.practicum.web.dto.compilation.convertor.CompilationToCompilationDtoConvertor;
 
@@ -18,7 +19,7 @@ public class AdminCompilationController {
 
 
     @PostMapping
-    CompilationDto createCompilation(@RequestBody CompilationDto compilationDto) {
+    CompilationDto createCompilation(@RequestBody CompilationInDto compilationDto) {
         Compilation newCompilation = compilationService.createCompilation(
                 compilationInDtoToCompilationConvertor.convert(compilationDto));
         return compilationToCompilationDtoConvertor.convert(newCompilation);

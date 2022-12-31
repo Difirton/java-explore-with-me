@@ -110,6 +110,13 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
     }
 
     @Override
+    public Event updateEvent(Event event) {
+        Event eventToUpdate = findById(event.getId());
+        copyNotNullProperties(event, eventToUpdate);
+        return eventRepository.save(eventToUpdate);
+    }
+
+    @Override
     public Event cancelEvent(Long userId, Long eventId) {
         Event event = this.findByUserIdAndId(userId, eventId);
         if (!event.getState().equals(State.PENDING)) {

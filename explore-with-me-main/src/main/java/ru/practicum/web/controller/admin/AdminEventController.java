@@ -7,6 +7,7 @@ import ru.practicum.event.repository.constant.State;
 import ru.practicum.event.repository.entity.Event;
 import ru.practicum.event.service.EventService;
 import ru.practicum.web.dto.event.EventDto;
+import ru.practicum.web.dto.event.EventInDto;
 import ru.practicum.web.dto.event.convertor.EventDtoConvertor;
 import ru.practicum.web.dto.event.convertor.EventToEventDtoInCollectionConvertor;
 
@@ -46,8 +47,10 @@ public class AdminEventController {
 
     @PutMapping("/{eventId}")
     public EventDto updateEvent(@PathVariable Long eventId,
-                                @RequestBody EventDto updateEventDto) {
-        Event updatedEvent = eventService.updateEvent(eventId, eventDtoConvertor.convertToEvent(updateEventDto));
+                                @RequestBody EventInDto updateEventDto) {
+        Event updateEvent = eventDtoConvertor.convertToEvent(updateEventDto);
+        updateEvent.setId(eventId);
+        Event updatedEvent = eventService.updateEvent(updateEvent);
         return eventDtoConvertor.convertToDto(updatedEvent);
     }
 

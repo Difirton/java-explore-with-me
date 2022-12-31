@@ -73,7 +73,9 @@ public class Event {
     private Integer views;
 
     @ManyToMany
-    @JoinTable(name = "compilations_events")
+    @JoinTable(name = "compilations_events",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "compilation_id"))
     private List<Compilation> compilations;
 }
 

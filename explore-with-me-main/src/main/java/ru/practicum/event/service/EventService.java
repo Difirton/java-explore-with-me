@@ -24,6 +24,8 @@ public interface EventService {
 
     Event updateEvent(Long userId, Event event);
 
+    Event updateEvent(Event event);
+
     Event cancelEvent(Long userId, Long eventId);
 
     Event publishEvent(Long eventId);
