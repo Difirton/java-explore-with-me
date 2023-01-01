@@ -3,7 +3,6 @@ package ru.practicum.web;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.service.StatService;
 import ru.practicum.web.convertor.HitDtoToHitConverter;
@@ -23,9 +22,10 @@ public class StatsController {
 
     private final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
-    @PostMapping(path = "/hit", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/hit")
     @ResponseStatus(HttpStatus.OK)
     void createHit(@Valid @RequestBody HitDto hitDto) {
+        System.out.println(hitDto);
         statService.save(hitDtoToHitConverter.convert(hitDto));
     }
 

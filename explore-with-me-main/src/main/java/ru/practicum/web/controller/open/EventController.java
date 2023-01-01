@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.service.EventService;
 import ru.practicum.utill.DateTimeParser;
 import ru.practicum.web.client.EventStatClient;
-import ru.practicum.web.dto.endpointhit.EndpointHit;
+import ru.practicum.web.dto.endpointhit.HitDto;
 import ru.practicum.web.dto.event.EventDto;
 import ru.practicum.web.dto.event.EventDtoInCollection;
 import ru.practicum.web.dto.event.convertor.EventDtoConvertor;
@@ -28,7 +28,7 @@ public class EventController {
     private final EventDtoConvertor eventDtoConvertor;
     private final EventStatClient eventStatClient;
 
-    private final String APP_NAME = "explore_with_me";
+    private final String APP_NAME = "ewm-main-service";
     private final String EMPTY_STRING = "";
     private final Boolean DEFAULT_ONLY_AVAILABLE = false;
     private final String DEFAULT_SORT = "WITHOUT_SORT";
@@ -45,9 +45,9 @@ public class EventController {
                                          @RequestParam Optional<String> sort,
                                          @RequestParam Optional<Integer> from, @RequestParam Optional<Integer> size,
                                          HttpServletRequest request) {
-//        EndpointHit endpointHit = new EndpointHit(APP_NAME, request.getRequestURI(), request.getRemoteAddr(),
-//                LocalDateTime.now());
-//       // eventStatClient.sendHit(endpointHit);
+        HitDto hitDto = new HitDto(null, APP_NAME, request.getRequestURI(), request.getRemoteAddr(),
+                LocalDateTime.now());
+        eventStatClient.sendHit(hitDto);
         return eventService.findAllByParams(text.orElse(EMPTY_STRING), categories.orElse(List.of()), isPaid,
                         rangeStart.map(DateTimeParser::parseToLocalDateTime)
                                 .orElse(LocalDateTime.now()),
@@ -62,9 +62,9 @@ public class EventController {
     @GetMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     EventDto getEventById(@PathVariable Long eventId, HttpServletRequest request) {
-//        EndpointHit endpointHit = new EndpointHit(APP_NAME, request.getRequestURI(), request.getRemoteAddr(),
-//                LocalDateTime.now());
-//        eventStatClient.sendHit(endpointHit);
+        HitDto hitDto = new HitDto(null, APP_NAME, request.getRequestURI(), request.getRemoteAddr(),
+                LocalDateTime.now());
+        eventStatClient.sendHit(hitDto);
         return eventDtoConvertor.convertToDto(eventService.findById(eventId));
     }
 }

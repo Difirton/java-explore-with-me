@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EndpointHit {
+public class HitDto {
+    private Long id;
     private String app;
     private String uri;
     private String ip;

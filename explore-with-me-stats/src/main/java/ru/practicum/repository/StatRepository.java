@@ -13,14 +13,13 @@ public interface StatRepository extends JpaRepository<EndpointHit, Long> {
     @Query("SELECT new ru.practicum.web.dto.StatDto(e.app, e.uri, COUNT(e.id))  " +
             "FROM EndpointHit AS e " +
             "WHERE e.uri IN ?1 " +
-          //  "AND e.timestamp BETWEEN ?2 AND ?3 " +
             "GROUP BY e.app, e.uri")
     List<StatDto> findStats(List<String> uris, LocalDateTime start, LocalDateTime finish);
 
     @Query("SELECT new ru.practicum.web.dto.StatDto(e.app, e.uri , COUNT(DISTINCT e.ip)) " +
             "FROM EndpointHit AS e " +
             "WHERE e.uri IN ?1 " +
-            //"AND e.timestamp BETWEEN ?2 AND ?3 " +
+            "AND e.timestamp BETWEEN ?2 AND ?3 " +
             "GROUP BY e.app, e.uri, e.ip")
-    List<StatDto> findUniqueStats(List<String> uris, LocalDateTime finish, LocalDateTime end);
+    List<StatDto> findUniqueStats(List<String> uris, LocalDateTime start, LocalDateTime finish);
 }
