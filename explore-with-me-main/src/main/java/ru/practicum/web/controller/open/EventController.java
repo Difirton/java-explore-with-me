@@ -30,6 +30,7 @@ public class EventController {
 
     private final String APP_NAME = "ewm-main-service";
     private final String EMPTY_STRING = "";
+    private final LocalDateTime PSQL_MAX = LocalDateTime.of(3000, 1, 1, 1, 1);
     private final Boolean DEFAULT_ONLY_AVAILABLE = false;
     private final String DEFAULT_SORT = "WITHOUT_SORT";
     private final Integer DEFAULT_FROM = 0;
@@ -49,10 +50,8 @@ public class EventController {
                 LocalDateTime.now());
         eventStatClient.sendHit(hitDto);
         return eventService.findAllByParams(text.orElse(EMPTY_STRING), categories.orElse(List.of()), isPaid,
-                        rangeStart.map(DateTimeParser::parseToLocalDateTime)
-                                .orElse(LocalDateTime.now()),
-                        rangeEnd.map(DateTimeParser::parseToLocalDateTime)
-                                .orElse(LocalDateTime.MAX),
+                        rangeStart.map(DateTimeParser::parseToLocalDateTime).orElse(LocalDateTime.now()),
+                        rangeEnd.map(DateTimeParser::parseToLocalDateTime).orElse(PSQL_MAX),
                         isOnlyAvailable.orElse(DEFAULT_ONLY_AVAILABLE), sort.orElse(DEFAULT_SORT),
                         from.orElse(DEFAULT_FROM), size.orElse(DEFAULT_SIZE)).stream()
                     .map(eventToEventDtoInCollectionConvertor::convert)

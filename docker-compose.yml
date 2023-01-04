@@ -10,7 +10,7 @@ services:
       - stats-db
       - main-service
     environment:
-      - explore-with-me-stats.url=http://ewm-service:8080
+      - explore-with-me-main.url=http://ewm-service:8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats
       - SPRING_DATASOURCE_USERNAME=adm
       - SPRING_DATASOURCE_PASSWORD=password
@@ -22,7 +22,7 @@ services:
     volumes:
       - /var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "6590:5432"
     environment:
       - POSTGRES_USER=adm
       - POSTGRES_PASSWORD=password
@@ -37,7 +37,7 @@ services:
     depends_on:
       - main-db
     environment:
-      - explore-with-me-stats.url=http://stats-server:8080
+      - explore-with-me-stats.url=http://stats-server:9090
       - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5432/main
       - SPRING_DATASOURCE_USERNAME=adm
       - SPRING_DATASOURCE_PASSWORD=password
@@ -49,7 +49,7 @@ services:
     volumes:
       - /var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "6580:5432"
     environment:
       - POSTGRES_USER=adm
       - POSTGRES_PASSWORD=password

@@ -12,7 +12,7 @@ import ru.practicum.web.dto.endpointhit.HitDto;
 public class EventStatClient extends BaseClient {
     private static final String POST_API = "/hit";
 
-    public EventStatClient(@Value("${explore-with-me-stat.url}") String serverUrl, RestTemplateBuilder builder) {
+    public EventStatClient(@Value("${explore-with-me-stats.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder.uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl + POST_API))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                 .build()
