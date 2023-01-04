@@ -27,6 +27,7 @@ public class StatServiceImpl implements StatService {
                             .uri(sb.append("/").append(endpoint).substring(1))
                             .build());
         }
+        hits.remove(0);
         statRepository.saveAll(hits);
     }
 

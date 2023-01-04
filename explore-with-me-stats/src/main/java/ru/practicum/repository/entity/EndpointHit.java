@@ -1,6 +1,7 @@
 package ru.practicum.repository.entity;
 
 import lombok.*;
+import ru.practicum.common.validator.IpAddress;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class EndpointHit {
@@ -24,6 +26,7 @@ public class EndpointHit {
     @Column(name = "uri")
     private String uri;
 
+    @IpAddress
     @Column(name = "ip")
     private String ip;
 

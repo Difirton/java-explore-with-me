@@ -21,20 +21,20 @@ public class UserRequestController {
     private final RequestToRequestDtoConvertor requestToRequestDtoConvertor;
 
     @PostMapping
-    public RequestDto createRequest(@Positive @PathVariable Long userId,
+    RequestDto createRequest(@Positive @PathVariable Long userId,
                                     @Positive @RequestParam(name = "eventId") Long eventId) {
         return requestToRequestDtoConvertor.convert(requestService.createRequest(userId, eventId));
     }
 
     @GetMapping
-    public List<RequestDto> getRequests(@Positive @PathVariable Long userId) {
+    List<RequestDto> getRequests(@Positive @PathVariable Long userId) {
         return requestService.findAllUserRequests(userId).stream()
                 .map(requestToRequestDtoConvertor::convert)
                 .collect(toList());
     }
 
     @PatchMapping("{requestId}/cancel")
-    public RequestDto cancelRequest(@Positive @PathVariable Long userId,
+    RequestDto deleteRequest(@Positive @PathVariable Long userId,
                                     @Positive @PathVariable Long requestId) {
         return requestToRequestDtoConvertor.convert(requestService.cancelRequest(userId, requestId));
     }

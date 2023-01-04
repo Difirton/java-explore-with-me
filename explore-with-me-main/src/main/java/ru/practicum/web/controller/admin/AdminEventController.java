@@ -29,15 +29,15 @@ public class AdminEventController {
     private final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @GetMapping
-    public List<EventDto> getEvents(@RequestParam(required = false) List<Long> users,
-                                    @RequestParam(required = false) List<State> states,
-                                    @RequestParam(required = false) List<Long> categories,
-                                    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-                                        @RequestParam Optional<LocalDateTime> rangeStart,
-                                    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-                                        @RequestParam Optional<LocalDateTime> rangeEnd,
-                                    @RequestParam Optional<Integer> from,
-                                    @RequestParam Optional<Integer> size) {
+    List<EventDto> getEvents(@RequestParam(required = false) List<Long> users,
+                             @RequestParam(required = false) List<State> states,
+                             @RequestParam(required = false) List<Long> categories,
+                                @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+                             @RequestParam Optional<LocalDateTime> rangeStart,
+                                @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+                             @RequestParam Optional<LocalDateTime> rangeEnd,
+                             @RequestParam Optional<Integer> from,
+                             @RequestParam Optional<Integer> size) {
         return eventService.findAllByParams(users, states, categories,
                         rangeStart.orElse(LocalDateTime.now()), rangeEnd.orElse(LocalDateTime.MAX),
                         from.orElse(DEFAULT_FROM), size.orElse(DEFAULT_SIZE)).stream()
@@ -46,8 +46,8 @@ public class AdminEventController {
     }
 
     @PutMapping("/{eventId}")
-    public EventDto updateEvent(@PathVariable Long eventId,
-                                @RequestBody EventInDto updateEventDto) {
+     EventDto updateEvent(@PathVariable Long eventId,
+                          @RequestBody EventInDto updateEventDto) {
         Event updateEvent = eventDtoConvertor.convertToEvent(updateEventDto);
         updateEvent.setId(eventId);
         Event updatedEvent = eventService.updateEvent(updateEvent);
@@ -55,12 +55,12 @@ public class AdminEventController {
     }
 
     @PatchMapping("/{eventId}/publish")
-    public EventDto publishEvent(@PathVariable Long eventId) {
+    EventDto publishEvent(@PathVariable Long eventId) {
         return eventDtoConvertor.convertToDto(eventService.publishEvent(eventId));
     }
 
     @PatchMapping("/{eventId}/reject")
-    public EventDto rejectEvent(@PathVariable Long eventId) {
+    EventDto rejectEvent(@PathVariable Long eventId) {
         return eventDtoConvertor.convertToDto(eventService.rejectEvent(eventId));
     }
 }

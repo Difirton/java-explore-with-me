@@ -14,7 +14,7 @@ import java.util.Arrays;
 @Component
 public class LogAudit {
 
-    @Pointcut("execution(* ru.practicum..*Controller.create*(..))")
+    @Pointcut("execution(* ru.practicum..*web..create*(..))")
     public void callControllerCreate() {
     }
 
@@ -24,7 +24,7 @@ public class LogAudit {
         log.info("Request to create new " + args.substring(1, args.length() - 1));
     }
 
-    @Pointcut("execution(* ru.practicum..*Controller.update*(..))")
+    @Pointcut("execution(* ru.practicum..*web..update*(..))")
     public void callControllerUpdate() {
     }
 
@@ -34,7 +34,7 @@ public class LogAudit {
         log.info("Request to update " + args.substring(1, args.length() - 1));
     }
 
-    @Pointcut("execution(* ru.practicum..*Controller.delete*(..))")
+    @Pointcut("execution(* ru.practicum..*web..delete*(..))")
     public void callControllerDelete() {
     }
 

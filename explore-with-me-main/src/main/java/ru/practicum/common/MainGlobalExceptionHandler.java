@@ -91,19 +91,4 @@ public class MainGlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(errorDto, HttpStatus.CONFLICT);
     }
-
-//    @ExceptionHandler
-//    public ResponseEntity<ErrorDto> handleThrowable(Exception e) {
-//        log.error("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
-//        ErrorDto errorDto = ErrorDto.builder()
-//                .reason("Error occurred")
-//                .message(e.getMessage())
-//                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-//                .timestamp(LocalDateTime.now())
-//                .errors(Arrays.stream(e.getStackTrace())
-//                        .map(StackTraceElement::getClassName)
-//                        .collect(Collectors.toList()))
-//                .build();
-//        return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
 }

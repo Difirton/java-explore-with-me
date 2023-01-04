@@ -1,7 +1,6 @@
 package ru.practicum.web.controller.admin;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.user.service.UserService;
 import ru.practicum.web.dto.user.UserDto;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/users")
