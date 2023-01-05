@@ -1,7 +1,6 @@
 package ru.practicum.web.dto.event;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 @Getter
 @Setter

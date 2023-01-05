@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService, NotNullPropertiesCopier<Category> {
     private final CategoryRepository categoryRepository;
+
     @Override
     public List<Category> findAll(Integer from, Integer size) {
         return categoryRepository.findAll(PageRequest.of(from, size)).toList();

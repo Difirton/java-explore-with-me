@@ -1,7 +1,6 @@
 package ru.practicum.web.dto.compilation;
 
 import lombok.*;
-import ru.practicum.web.dto.event.EventDtoInCollection;
 
 import java.util.List;
 

@@ -28,8 +28,8 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
     private final UserRepository userRepository;
     private final LocationRepository locationRepository;
 
-    private final Integer ONE_HOUR = 1;
-    private final Integer TWO_HOUR = 2;
+    private static final Integer ONE_HOUR = 1;
+    private static final Integer TWO_HOUR = 2;
 
     @Override
     public List<Event> findAllByParams(String text, List<Long> categoriesIds, Boolean isPaid, LocalDateTime rangeStart,

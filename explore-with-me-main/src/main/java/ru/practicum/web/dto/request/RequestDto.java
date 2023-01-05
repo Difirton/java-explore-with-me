@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.*;
-import ru.practicum.event.repository.constant.State;
 import ru.practicum.request.constant.Status;
 
 import java.time.LocalDateTime;

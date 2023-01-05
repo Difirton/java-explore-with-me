@@ -18,6 +18,7 @@ import java.util.List;
 public class CustomEventRepositoryImpl implements CustomEventRepository {
     @PersistenceContext
     private EntityManager entityManager;
+
     @Override
     public List<Event> findAllByParams(String text, List<Long> categoriesIds, Boolean isPaid, LocalDateTime rangeStart,
                                        LocalDateTime rangeEnd, Boolean isOnlyAvailable, Integer from, Integer size) {

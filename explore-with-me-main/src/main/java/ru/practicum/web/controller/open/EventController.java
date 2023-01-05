@@ -28,13 +28,13 @@ public class EventController {
     private final EventDtoConvertor eventDtoConvertor;
     private final EventStatClient eventStatClient;
 
-    private final String APP_NAME = "ewm-main-service";
-    private final String EMPTY_STRING = "";
-    private final LocalDateTime MAX_DATE = LocalDateTime.of(3000, 1, 1, 1, 1);
-    private final Boolean DEFAULT_ONLY_AVAILABLE = false;
-    private final String DEFAULT_SORT = "WITHOUT_SORT";
-    private final Integer DEFAULT_FROM = 0;
-    private final Integer DEFAULT_SIZE = 10;
+    private static final String APP_NAME = "ewm-main-service";
+    private static final String EMPTY_STRING = "";
+    private static final LocalDateTime MAX_DATE = LocalDateTime.of(3000, 1, 1, 1, 1);
+    private static final Boolean DEFAULT_ONLY_AVAILABLE = false;
+    private static final String DEFAULT_SORT = "WITHOUT_SORT";
+    private static final Integer DEFAULT_FROM = 0;
+    private static final Integer DEFAULT_SIZE = 10;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

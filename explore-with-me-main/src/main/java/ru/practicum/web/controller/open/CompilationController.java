@@ -18,8 +18,8 @@ public class CompilationController {
     private final CompilationService compilationService;
     private final CompilationToCompilationDtoConvertor compilationToCompilationDtoConvertor;
 
-    private final Integer DEFAULT_FROM = 0;
-    private final Integer DEFAULT_SIZE = 10;
+    private static final Integer DEFAULT_FROM = 0;
+    private static final Integer DEFAULT_SIZE = 10;
 
     @GetMapping
     List<CompilationDto> getCompilations(@RequestParam Optional<Boolean> pinned,

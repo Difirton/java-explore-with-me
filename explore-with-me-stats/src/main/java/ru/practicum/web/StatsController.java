@@ -20,12 +20,11 @@ public class StatsController {
     private final StatService statService;
     private final HitDtoToHitConverter hitDtoToHitConverter;
 
-    private final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping(path = "/hit")
     @ResponseStatus(HttpStatus.OK)
     void createHit(@Valid @RequestBody HitDto hitDto) {
-        System.out.println(hitDto);
         statService.save(hitDtoToHitConverter.convert(hitDto));
     }
 

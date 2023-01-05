@@ -24,9 +24,9 @@ public class AdminEventController {
     private final EventDtoConvertor eventDtoConvertor;
     private final EventToEventDtoInCollectionConvertor eventToEventDtoInCollectionConvertor;
 
-    private final Integer DEFAULT_FROM = 10;
-    private final Integer DEFAULT_SIZE = 0;
-    private final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private static final Integer DEFAULT_FROM = 10;
+    private static final Integer DEFAULT_SIZE = 0;
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @GetMapping
     List<EventDto> getEvents(@RequestParam(required = false) List<Long> users,

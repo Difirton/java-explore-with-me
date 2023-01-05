@@ -36,8 +36,8 @@ public class UserEventController {
     List<EventDtoInCollection> getEvents(@Positive @PathVariable Long userId,
                                          @Positive @RequestParam(defaultValue = "0") Integer from,
                                          @Positive @RequestParam(defaultValue = "10") Integer size) {
-        return eventService.findEventsByUser(userId, from, size).stream().
-                map(eventToEventDtoInCollectionConvertor::convert)
+        return eventService.findEventsByUser(userId, from, size).stream()
+                .map(eventToEventDtoInCollectionConvertor::convert)
                 .collect(toList());
     }
 

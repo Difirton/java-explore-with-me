@@ -18,6 +18,7 @@ public class EventDtoConvertor {
     private final LocationConvertor locationConvertor;
     private final CategoryToCategoryDtoConvertor categoryToCategoryDtoConvertor;
     private final CategoryDtoToCategoryConvertor categoryDtoToCategoryConvertor;
+
     public EventDto convertToDto(Event event) {
         return EventDto.builder()
                 .id(event.getId())
