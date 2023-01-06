@@ -1,15 +1,14 @@
 version: '3.1'
 services:
   stats-server:
-    build: stats-server
+    build: ./explore-with-me-stats
     restart: always
-    image: stats_image
-    container_name: stats_container
+    container_name: explore-with-me-stats
     ports:
       - "9090:9090"
     depends_on:
       - stats-db
-      - ewm-service
+      - main-service
     environment:
       - server.port=9090
       - explore-with-me-main.url=http://ewm-service:8080
@@ -31,9 +30,9 @@ services:
       - POSTGRES_DB=stats
 
   ewm-service:
-    build: ewm-service
-    image: ewm_service_image
-    container_name: ewm_service_container
+    build: ./explore-with-me-main
+    restart: always
+    container_name: explore-with-me-main
     ports:
       - "8080:8080"
     depends_on:
