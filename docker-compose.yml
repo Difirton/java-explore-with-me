@@ -8,7 +8,7 @@ services:
       - "9090:9090"
     depends_on:
       - stats-db
-      - main-service
+      - ewm-service
     environment:
       - server.port=9090
       - explore-with-me-main.url=http://ewm-service:8080
@@ -29,7 +29,7 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=stats
 
-  main-service:
+  ewm-service:
     build: explore-with-me-main
     restart: always
     container_name: explore-with-me-main
