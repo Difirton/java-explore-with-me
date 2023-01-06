@@ -8,7 +8,7 @@ services:
       - "9090:9090"
     depends_on:
       - stats-db
-      - main-service
+      - ewm-service
     environment:
       - server.port=9090
       - explore-with-me-main.url=http://ewm-service:8080
