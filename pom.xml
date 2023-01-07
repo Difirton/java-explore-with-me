@@ -1,124 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>Explore With Me</name>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
 
 	<groupId>ru.practicum</groupId>
 	<artifactId>explore-with-me</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>Explore With Me</name>
 
 	<modules>
-		<module>explore-with-me-stats</module>
-		<module>explore-with-me-main</module>
+		<module>main-service</module>
+		<module>stat-service</module>
 	</modules>
 
 	<properties>
 		<java.version>11</java.version>
-		<utf-8.sourceEncoding>UTF-8</utf-8.sourceEncoding>
-
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<project.build.sourceEncoding>${utf-8.sourceEncoding}</project.build.sourceEncoding>
-
-		<spring.starter.parent.version>2.7.5</spring.starter.parent.version>
-
-		<explore.with.me.version>${project.version}</explore.with.me.version>
-		<explore.with.me.ewm.version>${explore.with.me.version}</explore.with.me.ewm.version>
-		<explore.with.me.stats.version>${explore.with.me.version}</explore.with.me.stats.version>
-
-		<postgresql.version>42.3.8</postgresql.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-parent</artifactId>
-				<version>${spring.starter.parent.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>ru.practicum</groupId>
-				<artifactId>explore-with-me-ewm</artifactId>
-				<version>${explore.with.me.ewm.versionn}</version>
-			</dependency>
-			<dependency>
-				<groupId>ru.practicum</groupId>
-				<artifactId>explore-with-me-stats</artifactId>
-				<version>${explore.with.me.stats.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!--spring-web-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<!--spring-data-jpa-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-
-		<!--aspects-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
-
-		<!--db-->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${postgresql.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!--lombok-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>compile</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<!--test-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 
 	<build>
 		<pluginManagement>
@@ -281,5 +188,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
