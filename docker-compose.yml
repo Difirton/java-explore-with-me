@@ -23,7 +23,7 @@ services:
     volumes:
       - /var/lib/postgresql/data
     ports:
-      - "6590:5432"
+      - "6591:5432"
     environment:
       - POSTGRES_USER=adm
       - POSTGRES_PASSWORD=password
@@ -51,7 +51,7 @@ services:
     volumes:
       - /var/lib/postgresql/data
     ports:
-      - "6580:5432"
+      - "6581:5432"
     environment:
       - POSTGRES_USER=adm
       - POSTGRES_PASSWORD=password
