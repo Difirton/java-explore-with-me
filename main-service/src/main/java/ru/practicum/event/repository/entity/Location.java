@@ -3,6 +3,7 @@ package ru.practicum.event.repository.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Getter
@@ -17,7 +18,9 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     private BigDecimal lat;
 
+    @NotNull
     private BigDecimal lon;
 }

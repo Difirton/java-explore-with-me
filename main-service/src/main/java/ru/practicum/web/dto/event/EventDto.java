@@ -8,6 +8,8 @@ import ru.practicum.event.repository.constant.State;
 import ru.practicum.user.repository.entity.User;
 import ru.practicum.web.dto.category.CategoryDto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,8 +19,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventDto {
     private Long id;
+
+    @NotBlank
+    @Size(max = 100)
     private String title;
+
+    @NotBlank
+    @Size(max = 1024)
     private String annotation;
+
+    @Size(max = 2048)
     private String description;
     private CategoryDto category;
     private Integer confirmedRequests;

@@ -12,6 +12,7 @@ import ru.practicum.web.dto.event.convertor.EventToEventDtoInCollectionConvertor
 import ru.practicum.web.dto.request.RequestDto;
 import ru.practicum.web.dto.request.convertor.RequestToRequestDtoConvertor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -42,14 +43,13 @@ public class UserEventController {
     }
 
     @PostMapping
-    EventDto createEvent(@Positive @PathVariable Long userId, @RequestBody EventInDto eventDto) {
+    EventDto createEvent(@Valid @Positive @PathVariable Long userId, @Valid @RequestBody EventInDto eventDto) {
         return eventDtoConvertor.convertToDto(eventService.createEvent(userId,
                 eventDtoConvertor.convertToEvent(eventDto)));
     }
 
     @PatchMapping
-    EventDto updateEvent(@Positive @PathVariable Long userId,
-                         @RequestBody EventInDto eventDto) {
+    EventDto updateEvent(@Valid @Positive @PathVariable Long userId, @RequestBody EventInDto eventDto) {
         return eventDtoConvertor.convertToDto(eventService.updateEvent(userId,
                 eventDtoConvertor.convertToEvent(eventDto)));
     }

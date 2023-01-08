@@ -8,6 +8,7 @@ import ru.practicum.user.repository.entity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,14 +25,17 @@ public class Event {
     private Long id;
 
     @NotBlank
+    @Size(max = 100)
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
     @NotBlank
-    @Column(name = "annotation", length = 1000)
+    @Size(max = 1024)
+    @Column(name = "annotation", length = 1024)
     private String annotation;
 
-    @Column(name = "description", length = 1000)
+    @Size(max = 2048)
+    @Column(name = "description", length = 2048)
     private String description;
 
     @ManyToOne

@@ -5,6 +5,7 @@ import ru.practicum.event.repository.entity.Event;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -20,8 +21,11 @@ public class Compilation {
     private Long id;
 
     @NotBlank
+    @Size(max = 100)
+    @Column(name = "title", length = 100)
     private String title;
 
+    @Column(name = "pinned")
     private Boolean pinned;
 
     @ManyToMany
