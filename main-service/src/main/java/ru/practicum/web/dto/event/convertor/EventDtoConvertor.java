@@ -39,21 +39,6 @@ public class EventDtoConvertor {
                 .build();
     }
 
-    public Event convertToEvent(EventDto eventDto) {
-        return Event.builder()
-                .id(eventDto.getId())
-                .title(eventDto.getTitle())
-                .annotation(eventDto.getAnnotation())
-                .description(eventDto.getDescription())
-                .eventDate(eventDto.getEventDate())
-                .publishedOn(LocalDateTime.now())
-                .requestModeration(eventDto.getRequestModeration())
-                .category(categoryDtoToCategoryConvertor.convert(eventDto.getCategory()))
-                .location(locationConvertor.toLocation(eventDto.getLocation()))
-                .isPaid(eventDto.getPaid())
-                .build();
-    }
-
     public Event convertToEvent(EventInDto eventDto) {
         Location location = null;
         Category category = null;

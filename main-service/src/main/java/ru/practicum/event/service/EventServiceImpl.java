@@ -91,7 +91,7 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
                 .orElseThrow(() -> new UserNotFoundException(userId));
         event.setInitiator(user);
         event.setState(State.PENDING);
-        this.saveLocation(event.getLocation()); //TODO А оно надо?
+        this.saveLocation(event.getLocation());
         return eventRepository.save(event);
     }
 

@@ -9,7 +9,6 @@ import ru.practicum.event.service.EventService;
 import ru.practicum.web.dto.event.EventDto;
 import ru.practicum.web.dto.event.EventInDto;
 import ru.practicum.web.dto.event.convertor.EventDtoConvertor;
-import ru.practicum.web.dto.event.convertor.EventToEventDtoInCollectionConvertor;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 public class AdminEventController {
     private final EventService eventService;
     private final EventDtoConvertor eventDtoConvertor;
-    private final EventToEventDtoInCollectionConvertor eventToEventDtoInCollectionConvertor;
 
     private static final Integer DEFAULT_FROM = 10;
     private static final Integer DEFAULT_SIZE = 0;

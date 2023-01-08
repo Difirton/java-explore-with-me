@@ -10,7 +10,6 @@ import ru.practicum.user.repository.entity.User;
 
 import java.time.LocalDateTime;
 
-@ToString
 @Getter
 @Setter
 @Builder

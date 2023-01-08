@@ -25,10 +25,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class MainGlobalExceptionHandler {
+    public static final String ERROR_LOG = "Error {}: {}";
+
     @ExceptionHandler({UserNotFoundException.class, RequestNotFoundException.class, EventNotFoundException.class,
     CompilationNotFoundException.class, CategoryNotFoundException.class})
     public ResponseEntity<ErrorDto> handleNotFound(RuntimeException e) {
-        log.error("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
+        log.error(ERROR_LOG, e.getClass().getSimpleName(), e.getMessage());
         ErrorDto errorDto = ErrorDto.builder()
                 .reason("The required object was not found.")
                 .message(e.getMessage())
@@ -45,7 +47,7 @@ public class MainGlobalExceptionHandler {
             InvalidDataAccessApiUsageException.class, javax.validation.ConstraintViolationException.class,
             HttpMessageNotReadableException.class})
     public ResponseEntity<ErrorDto> handleBadRequest(RuntimeException e) {
-        log.info("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
+        log.info(ERROR_LOG, e.getClass().getSimpleName(), e.getMessage());
         ErrorDto errorDto = ErrorDto.builder()
                 .reason("For the requested operation the conditions are not met.")
                 .message(e.getMessage())
@@ -60,7 +62,7 @@ public class MainGlobalExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class, MissingServletRequestParameterException.class})
     public ResponseEntity<List<ErrorDto>> handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
-        log.error("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
+        log.error(ERROR_LOG, e.getClass().getSimpleName(), e.getMessage());
         List<ErrorDto> errorDtoList = new ArrayList<>();
         e.getBindingResult().getFieldErrors().forEach(error -> {
             ErrorDto errorDto = ErrorDto.builder()
@@ -79,7 +81,7 @@ public class MainGlobalExceptionHandler {
 
     @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
     public ResponseEntity<ErrorDto> handleConflict(RuntimeException e) {
-        log.error("Error {}: {}", e.getClass().getSimpleName(), e.getMessage());
+        log.error(ERROR_LOG, e.getClass().getSimpleName(), e.getMessage());
         ErrorDto errorDto = ErrorDto.builder()
                 .reason("Error occurred")
                 .message(e.getMessage())

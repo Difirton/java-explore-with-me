@@ -18,7 +18,7 @@ public class EventToEventDtoInCollectionConvertor implements Converter<Event, Ev
                 .confirmedRequests(source.getConfirmedRequests())
                 .initiator(source.getInitiator())
                 .paid(source.getIsPaid())
-                .views(source.getViews()) //TODO подумать нужны ли тут вьюхи
+                .views(source.getViews())
                 .build();
     }
 }

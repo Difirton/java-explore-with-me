@@ -1,7 +1,6 @@
 package ru.practicum.web.dto.compilation.convertor;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import ru.practicum.compilation.repository.Compilation;
@@ -13,7 +12,6 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class CompilationToCompilationDtoConvertor implements Converter<Compilation, CompilationDto> {
-    @Autowired
     private final EventToEventDtoInCollectionConvertor eventConvertor;
 
     @Override
