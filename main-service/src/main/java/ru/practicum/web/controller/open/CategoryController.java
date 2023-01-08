@@ -7,6 +7,8 @@ import ru.practicum.category.service.CategoryService;
 import ru.practicum.web.dto.category.convertor.CategoryToCategoryDtoConvertor;
 import ru.practicum.web.dto.category.CategoryDto;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +33,7 @@ public class CategoryController {
 
     @GetMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    CategoryDto getCategoryById(@PathVariable Long categoryId) {
+    CategoryDto getCategoryById(@Valid @Positive @PathVariable Long categoryId) {
         return categoryToCategoryDtoConvertor.convert(categoryService.findById(categoryId));
     }
 }

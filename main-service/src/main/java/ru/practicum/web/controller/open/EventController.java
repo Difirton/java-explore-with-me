@@ -14,6 +14,7 @@ import ru.practicum.web.dto.event.convertor.EventDtoConvertor;
 import ru.practicum.web.dto.event.convertor.EventToEventDtoInCollectionConvertor;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +61,7 @@ public class EventController {
 
     @GetMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    EventDto getEventById(@PathVariable Long eventId, HttpServletRequest request) {
+    EventDto getEventById(@Valid @PathVariable Long eventId, HttpServletRequest request) {
         HitDto hitDto = new HitDto(null, APP_NAME, request.getRequestURI(), request.getRemoteAddr(),
                 LocalDateTime.now());
         eventStatClient.sendHit(hitDto);

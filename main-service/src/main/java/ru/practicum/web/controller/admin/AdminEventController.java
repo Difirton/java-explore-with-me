@@ -10,6 +10,8 @@ import ru.practicum.web.dto.event.EventDto;
 import ru.practicum.web.dto.event.EventInDto;
 import ru.practicum.web.dto.event.convertor.EventDtoConvertor;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public class AdminEventController {
     }
 
     @PutMapping("/{eventId}")
-     EventDto updateEvent(@PathVariable Long eventId,
+     EventDto updateEvent(@Valid @Positive @PathVariable Long eventId,
                           @RequestBody EventInDto updateEventDto) {
         Event updateEvent = eventDtoConvertor.convertToEvent(updateEventDto);
         updateEvent.setId(eventId);
@@ -53,12 +55,12 @@ public class AdminEventController {
     }
 
     @PatchMapping("/{eventId}/publish")
-    EventDto publishEvent(@PathVariable Long eventId) {
+    EventDto publishEvent(@Positive @PathVariable Long eventId) {
         return eventDtoConvertor.convertToDto(eventService.publishEvent(eventId));
     }
 
     @PatchMapping("/{eventId}/reject")
-    EventDto rejectEvent(@PathVariable Long eventId) {
+    EventDto rejectEvent(@Valid @Positive @PathVariable Long eventId) {
         return eventDtoConvertor.convertToDto(eventService.rejectEvent(eventId));
     }
 }

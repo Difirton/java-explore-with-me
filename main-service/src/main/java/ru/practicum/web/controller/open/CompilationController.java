@@ -23,8 +23,8 @@ public class CompilationController {
 
     @GetMapping
     List<CompilationDto> getCompilations(@RequestParam Optional<Boolean> pinned,
-                                                @RequestParam Optional<Integer> from,
-                                                @RequestParam Optional<Integer> size) {
+                                         @RequestParam Optional<Integer> from,
+                                         @RequestParam Optional<Integer> size) {
         return compilationService.findCompilations(pinned, from.orElse(DEFAULT_FROM),
                         size.orElse(DEFAULT_SIZE)).stream()
                 .map(compilationToCompilationDtoConvertor::convert)

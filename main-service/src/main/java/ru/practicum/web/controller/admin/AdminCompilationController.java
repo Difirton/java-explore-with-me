@@ -9,6 +9,9 @@ import ru.practicum.web.dto.compilation.CompilationInDto;
 import ru.practicum.web.dto.compilation.convertor.CompilationInDtoToCompilationConvertor;
 import ru.practicum.web.dto.compilation.convertor.CompilationToCompilationDtoConvertor;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/compilations")
@@ -26,27 +29,29 @@ public class AdminCompilationController {
     }
 
     @DeleteMapping("/{compId}")
-    void deleteCompilation(@PathVariable Long compId) {
+    void deleteCompilation(@Valid @Positive @PathVariable Long compId) {
         compilationService.deleteCompilation(compId);
     }
 
     @DeleteMapping("/{compId}/events/{eventId}")
-    void deleteEventFromCompilation(@PathVariable Long compId, @PathVariable Long eventId) {
+    void deleteEventFromCompilation(@Valid @Positive @PathVariable Long compId,
+                                    @Valid @Positive @PathVariable Long eventId) {
         compilationService.deleteEventFromCompilation(compId, eventId);
     }
 
     @PatchMapping("/{compId}/events/{eventId}")
-    void addEventToCompilation(@PathVariable Long compId, @PathVariable Long eventId) {
+    void addEventToCompilation(@Valid @Positive @PathVariable Long compId,
+                               @Valid @Positive @PathVariable Long eventId) {
         compilationService.addEventToCompilation(compId, eventId);
     }
 
     @DeleteMapping("/{compId}/pin")
-    void unpinCompilation(@PathVariable Long compId) {
+    void unpinCompilation(@Valid @Positive @PathVariable Long compId) {
         compilationService.unpinCompilation(compId);
     }
 
     @PatchMapping("/{compId}/pin")
-    void pinCompilation(@PathVariable Long compId) {
+    void pinCompilation(@Valid @Positive @PathVariable Long compId) {
         compilationService.pinCompilation(compId);
     }
 }

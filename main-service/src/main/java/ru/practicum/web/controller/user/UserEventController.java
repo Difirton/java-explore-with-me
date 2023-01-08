@@ -29,12 +29,12 @@ public class UserEventController {
     private final RequestToRequestDtoConvertor requestToRequestDtoConvertor;
 
     @GetMapping("/{eventId}")
-    EventDto getEvent(@Positive @PathVariable Long userId, @Positive @PathVariable Long eventId) {
+    EventDto getEvent(@Valid @Positive @PathVariable Long userId, @Valid @Positive @PathVariable Long eventId) {
         return eventDtoConvertor.convertToDto(eventService.findByUserIdAndId(userId, eventId));
     }
 
     @GetMapping
-    List<EventDtoInCollection> getEvents(@Positive @PathVariable Long userId,
+    List<EventDtoInCollection> getEvents(@Valid @Positive @PathVariable Long userId,
                                          @Positive @RequestParam(defaultValue = "0") Integer from,
                                          @Positive @RequestParam(defaultValue = "10") Integer size) {
         return eventService.findEventsByUser(userId, from, size).stream()
@@ -43,7 +43,7 @@ public class UserEventController {
     }
 
     @PostMapping
-    EventDto createEvent(@Valid @Positive @PathVariable Long userId, @Valid @RequestBody EventInDto eventDto) {
+    EventDto createEvent(@Valid @Positive @PathVariable Long userId, @RequestBody EventInDto eventDto) {
         return eventDtoConvertor.convertToDto(eventService.createEvent(userId,
                 eventDtoConvertor.convertToEvent(eventDto)));
     }
@@ -55,26 +55,26 @@ public class UserEventController {
     }
 
     @PatchMapping("/{eventId}")
-    EventDto cancelEvent(@Positive @PathVariable Long userId, @Positive @PathVariable Long eventId) {
+    EventDto cancelEvent(@Valid @Positive @PathVariable Long userId, @Positive @PathVariable Long eventId) {
         return eventDtoConvertor.convertToDto(eventService.cancelEvent(userId, eventId));
     }
 
     @GetMapping("/{eventId}/requests")
-    List<RequestDto> getEventRequests(@Positive @PathVariable Long userId, @Positive @PathVariable Long eventId) {
+    List<RequestDto> getEventRequests(@Valid @Positive @PathVariable Long userId, @Positive @PathVariable Long eventId) {
         return requestService.findRequestsByUserIdAndEventId(userId, eventId).stream()
                 .map(requestToRequestDtoConvertor::convert)
                 .collect(toList());
     }
 
     @PatchMapping("/{eventId}/requests/{requestId}/confirm")
-    RequestDto confirmRequest(@Positive @PathVariable Long userId, @Positive @PathVariable Long eventId,
-                              @Positive @PathVariable Long requestId) {
+    RequestDto confirmRequest(@Valid @Positive @PathVariable Long userId, @Valid @Positive @PathVariable Long eventId,
+                              @Valid @Positive @PathVariable Long requestId) {
         return requestToRequestDtoConvertor.convert(requestService.confirmRequest(userId, eventId, requestId));
     }
 
     @PatchMapping("/{eventId}/requests/{requestId}/reject")
-    RequestDto rejectRequest(@Positive @PathVariable Long userId, @Positive @PathVariable Long eventId,
-                             @Positive @PathVariable Long requestId) {
+    RequestDto rejectRequest(@Valid @Positive @PathVariable Long userId, @Valid @Positive @PathVariable Long eventId,
+                             @Valid @Positive @PathVariable Long requestId) {
         return requestToRequestDtoConvertor.convert(requestService.rejectRequest(userId, eventId, requestId));
     }
 }
