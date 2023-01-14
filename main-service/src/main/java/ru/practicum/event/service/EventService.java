@@ -4,9 +4,7 @@ import ru.practicum.event.repository.constant.State;
 import ru.practicum.event.repository.entity.Event;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public interface EventService {
     List<Event> findAllByParams(String text, List<Long> categoriesIds, Boolean isPaid, LocalDateTime rangeStart,

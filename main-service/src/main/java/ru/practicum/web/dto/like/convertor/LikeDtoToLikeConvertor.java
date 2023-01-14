@@ -6,7 +6,6 @@ import ru.practicum.event.repository.entity.Event;
 import ru.practicum.like.repository.entity.Like;
 import ru.practicum.user.repository.entity.User;
 import ru.practicum.web.dto.like.LikeDto;
-import ru.practicum.web.dto.user.UserDto;
 
 @Component
 public class LikeDtoToLikeConvertor implements Converter<LikeDto, Like> {

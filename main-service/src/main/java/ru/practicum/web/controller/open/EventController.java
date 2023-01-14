@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.service.EventService;
-import ru.practicum.like.service.LikeService;
 import ru.practicum.utill.DateTimeParser;
 import ru.practicum.web.client.EventStatClient;
 import ru.practicum.web.dto.endpointhit.HitDto;
