@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Sql(scripts = {"classpath:script/schema_EventRepositoryTest.sql"},
+@Sql(scripts = {"classpath:schema.sql", "classpath:script/schema_EventRepositoryTest.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class EventRepositoryTest {
     @Autowired
@@ -45,7 +45,7 @@ class EventRepositoryTest {
         assertEquals(3, user4Events.size());
         assertEquals("Test 1", user4Events.get(0).getTitle());
         assertEquals("Test 3", user4Events.get(1).getTitle());
-        assertEquals("Test 2", user4Events.get(1).getTitle());
+        assertEquals("Test 2", user4Events.get(2).getTitle());
     }
 
     @Test
