@@ -31,4 +31,8 @@ public interface EventService {
     Event publishEvent(Long eventId);
 
     Event rejectEvent(Long eventId);
+
+    List<Event> findMostPopular(Integer from, Integer size);
+
+    List<Event> findUserRecommendation(Long userId, Integer from, Integer size);
 }

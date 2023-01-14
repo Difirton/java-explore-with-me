@@ -15,10 +15,13 @@ import ru.practicum.web.dto.event.convertor.EventToEventDtoInCollectionConvertor
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
@@ -66,5 +69,13 @@ public class EventController {
                 LocalDateTime.now());
         eventStatClient.sendHit(hitDto);
         return eventDtoConvertor.convertToDto(eventService.findById(eventId));
+    }
+
+    @GetMapping("/most-popular")
+    List<EventDtoInCollection> getEvents(@Positive @RequestParam(defaultValue = "0") Integer from,
+                                         @Positive @RequestParam(defaultValue = "10") Integer size) {
+        return eventService.findMostPopular(from, size).stream()
+                .map(eventToEventDtoInCollectionConvertor::convert)
+                .collect(toList());
     }
 }

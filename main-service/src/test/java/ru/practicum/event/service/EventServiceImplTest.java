@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import ru.practicum.category.repository.entity.Category;
@@ -152,5 +153,15 @@ class EventServiceImplTest {
         when(mockRepository.findByIdAndInitiatorId(1L, 1L)).thenReturn(Optional.of(event));
         eventService.updateEvent(1L, updatedEvent);
         verify(mockRepository, times(1)).save(event);
+    }
+
+    @Test
+    @DisplayName("Test find recommendation for user")
+    void findUserRecommendation() {
+        when(mockRepository.findPopularEventWithoutLikesEventsOfUsers(1L, PageRequest.of(0, 5)))
+                .thenReturn(Page.empty());
+        eventService.findUserRecommendation(1L, 0, 5);
+        verify(mockRepository, times(1))
+                .findPopularEventWithoutLikesEventsOfUsers(1L, PageRequest.of(0, 5));
     }
 }

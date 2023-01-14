@@ -81,5 +81,8 @@ public class Event {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "compilation_id"))
     private List<Compilation> compilations;
+
+    @Column(name = "likes_rating")
+    private Integer likesRating;
 }
 

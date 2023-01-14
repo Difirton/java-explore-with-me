@@ -19,6 +19,7 @@ public class EventToEventDtoInCollectionConvertor implements Converter<Event, Ev
                 .initiator(source.getInitiator())
                 .paid(source.getIsPaid())
                 .views(source.getViews())
+                .countLikes(source.getLikesRating())
                 .build();
     }
 }

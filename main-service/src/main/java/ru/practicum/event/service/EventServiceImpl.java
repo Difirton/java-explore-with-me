@@ -2,6 +2,7 @@ package ru.practicum.event.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.common.NotNullPropertiesCopier;
 import ru.practicum.event.error.EventNotFoundException;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static ru.practicum.event.repository.constant.EventSort.*;
 
 @Service
@@ -146,6 +148,20 @@ public class EventServiceImpl implements EventService, NotNullPropertiesCopier<E
         }
         event.setState(State.CANCELED);
         return eventRepository.save(event);
+    }
+
+    @Override
+    public List<Event> findMostPopular(Integer from, Integer size) {
+        return eventRepository.findAll(PageRequest.of(from, size, Sort.by(Sort.Direction.ASC, "countLikes")))
+                .toList();
+    }
+
+    @Override
+    public List<Event> findUserRecommendation(Long userId, Integer from, Integer size) {
+        userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        return eventRepository.findPopularEventWithoutLikesEventsOfUsers(userId, PageRequest.of(from, size)).stream()
+                .distinct()
+                .collect(toList());
     }
 
     private void saveLocation(Location location) {
