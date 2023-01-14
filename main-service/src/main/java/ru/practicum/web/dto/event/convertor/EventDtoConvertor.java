@@ -36,6 +36,7 @@ public class EventDtoConvertor {
                 .paid(event.getIsPaid())
                 .state(event.getState())
                 .views(event.getViews())
+                .countLikes(event.getLikesRating())
                 .build();
     }
 
@@ -62,6 +63,7 @@ public class EventDtoConvertor {
                 .category(category)
                 .location(location)
                 .isPaid(eventDto.getPaid())
+                .likesRating(eventDto.getCountLikes())
                 .build();
     }
 }

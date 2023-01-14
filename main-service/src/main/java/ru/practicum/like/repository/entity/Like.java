@@ -22,8 +22,10 @@ public class Like {
     private Boolean isLike;
 
     @ManyToOne
+    @JoinColumn(name = "event_id")
     private Event event;
 
     @ManyToOne
+    @JoinColumn(name = "reviewer_id")
     private User reviewer;
 }

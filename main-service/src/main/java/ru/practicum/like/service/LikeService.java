@@ -8,7 +8,5 @@ public interface LikeService {
 
     Like updateLike(Long userId, Long eventId, Boolean isLike);
 
-    Like updateLike(Like like);
-
     void deleteLike(Long userId, Long eventId);
 }

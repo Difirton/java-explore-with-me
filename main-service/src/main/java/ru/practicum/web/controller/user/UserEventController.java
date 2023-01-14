@@ -19,7 +19,6 @@ import ru.practicum.web.dto.request.convertor.RequestToRequestDtoConvertor;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -92,20 +91,23 @@ public class UserEventController {
         return likeToLikeDtoConvertor.convert(likeService.createLike(userId, eventId, isLike));
     }
 
-    @PatchMapping("/{eventId}")
+    @PatchMapping("/{eventId}/like")
     LikeDto updateLike(@Valid @Positive @PathVariable Long userId, @Positive @PathVariable Long eventId,
                        @RequestParam Boolean isLike) {
         return likeToLikeDtoConvertor.convert(likeService.updateLike(userId, eventId, isLike));
     }
 
-    @PatchMapping("/{eventId}")
-    LikeDto updateLike(@RequestBody LikeDto likeDto) {
-        return likeToLikeDtoConvertor.convert(
-                likeService.updateLike(likeDtoToLikeConvertor.convert(likeDto)));
-    }
-
     @DeleteMapping("/{eventId}")
     void deleteLike(@Valid @Positive @PathVariable Long userId, @Positive @PathVariable Long eventId) {
         likeService.deleteLike(userId, eventId);
+    }
+
+    @GetMapping("/recommendations")
+    List<EventDtoInCollection> getRecommendations(@Valid @Positive @PathVariable Long userId,
+                                         @Positive @RequestParam(defaultValue = "0") Integer from,
+                                         @Positive @RequestParam(defaultValue = "10") Integer size) {
+        return eventService.findUserRecommendation(userId, from, size).stream()
+                .map(eventToEventDtoInCollectionConvertor::convert)
+                .collect(toList());
     }
 }

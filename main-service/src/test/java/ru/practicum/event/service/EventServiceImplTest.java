@@ -153,4 +153,12 @@ class EventServiceImplTest {
         eventService.updateEvent(1L, updatedEvent);
         verify(mockRepository, times(1)).save(event);
     }
+
+    @Test
+    @DisplayName("Test find recommendation for user")
+    void findUserRecommendation() {
+        eventService.findUserRecommendation(1L, 0, 5);
+        verify(mockRepository, times(1))
+                .findPopularEventWithoutLikesEventsOfUsers(1L, PageRequest.of(0, 5));
+    }
 }

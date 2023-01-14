@@ -39,6 +39,7 @@ public class EventDto {
     private State state;
     private Integer participantLimit;
     private Integer views;
+    private Integer countLikes;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
